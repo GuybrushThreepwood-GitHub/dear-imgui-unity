@@ -2986,6 +2986,97 @@ namespace ImGuiNET
         {
             ImGuiNative.igDestroyContext(ctx);
         }
+        public static void DestroyPlatformWindows()
+        {
+            ImGuiNative.igDestroyPlatformWindows();
+        }
+        public static uint DockSpace(uint id)
+        {
+            Vector2 size = new Vector2();
+            ImGuiDockNodeFlags flags = (ImGuiDockNodeFlags)0;
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpace(id, size, flags, window_class);
+            return ret;
+        }
+        public static uint DockSpace(uint id, Vector2 size)
+        {
+            ImGuiDockNodeFlags flags = (ImGuiDockNodeFlags)0;
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpace(id, size, flags, window_class);
+            return ret;
+        }
+        public static uint DockSpace(uint id, Vector2 size, ImGuiDockNodeFlags flags)
+        {
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpace(id, size, flags, window_class);
+            return ret;
+        }
+        [Obsolete("Use method with non-primitive (enum) arguments instead.")]
+        public static uint DockSpace(uint id, Vector2 size, int flags)
+        {
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpace(id, size, (ImGuiDockNodeFlags)flags, window_class);
+            return ret;
+        }
+        public static uint DockSpace(uint id, Vector2 size, ImGuiDockNodeFlags flags, ImGuiWindowClassPtr window_class)
+        {
+            ImGuiWindowClass* native_window_class = window_class.NativePtr;
+            uint ret = ImGuiNative.igDockSpace(id, size, flags, native_window_class);
+            return ret;
+        }
+        [Obsolete("Use method with non-primitive (enum) arguments instead.")]
+        public static uint DockSpace(uint id, Vector2 size, int flags, ImGuiWindowClassPtr window_class)
+        {
+            ImGuiWindowClass* native_window_class = window_class.NativePtr;
+            uint ret = ImGuiNative.igDockSpace(id, size, (ImGuiDockNodeFlags)flags, native_window_class);
+            return ret;
+        }
+        public static uint DockSpaceOverViewport()
+        {
+            ImGuiViewport* viewport = null;
+            ImGuiDockNodeFlags flags = (ImGuiDockNodeFlags)0;
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpaceOverViewport(viewport, flags, window_class);
+            return ret;
+        }
+        public static uint DockSpaceOverViewport(ImGuiViewportPtr viewport)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImGuiDockNodeFlags flags = (ImGuiDockNodeFlags)0;
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpaceOverViewport(native_viewport, flags, window_class);
+            return ret;
+        }
+        public static uint DockSpaceOverViewport(ImGuiViewportPtr viewport, ImGuiDockNodeFlags flags)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpaceOverViewport(native_viewport, flags, window_class);
+            return ret;
+        }
+        [Obsolete("Use method with non-primitive (enum) arguments instead.")]
+        public static uint DockSpaceOverViewport(ImGuiViewportPtr viewport, int flags)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImGuiWindowClass* window_class = null;
+            uint ret = ImGuiNative.igDockSpaceOverViewport(native_viewport, (ImGuiDockNodeFlags)flags, window_class);
+            return ret;
+        }
+        public static uint DockSpaceOverViewport(ImGuiViewportPtr viewport, ImGuiDockNodeFlags flags, ImGuiWindowClassPtr window_class)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImGuiWindowClass* native_window_class = window_class.NativePtr;
+            uint ret = ImGuiNative.igDockSpaceOverViewport(native_viewport, flags, native_window_class);
+            return ret;
+        }
+        [Obsolete("Use method with non-primitive (enum) arguments instead.")]
+        public static uint DockSpaceOverViewport(ImGuiViewportPtr viewport, int flags, ImGuiWindowClassPtr window_class)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImGuiWindowClass* native_window_class = window_class.NativePtr;
+            uint ret = ImGuiNative.igDockSpaceOverViewport(native_viewport, (ImGuiDockNodeFlags)flags, native_window_class);
+            return ret;
+        }
         public static bool DragFloat(string label, ref float v)
         {
             byte* native_label;
@@ -8012,6 +8103,17 @@ namespace ImGuiNET
         {
             ImGuiNative.igEndTooltip();
         }
+        public static ImGuiViewportPtr FindViewportByID(uint id)
+        {
+            ImGuiViewport* ret = ImGuiNative.igFindViewportByID(id);
+            return new ImGuiViewportPtr(ret);
+        }
+        public static ImGuiViewportPtr FindViewportByPlatformHandle(IntPtr platform_handle)
+        {
+            void* native_platform_handle = (void*)platform_handle.ToPointer();
+            ImGuiViewport* ret = ImGuiNative.igFindViewportByPlatformHandle(native_platform_handle);
+            return new ImGuiViewportPtr(ret);
+        }
         public static void GetAllocatorFunctions(ref IntPtr p_alloc_func, ref IntPtr p_free_func, ref void* p_user_data)
         {
             fixed (IntPtr* native_p_alloc_func = &p_alloc_func)
@@ -8028,6 +8130,12 @@ namespace ImGuiNET
         public static ImDrawListPtr GetBackgroundDrawList()
         {
             ImDrawList* ret = ImGuiNative.igGetBackgroundDrawList_Nil();
+            return new ImDrawListPtr(ret);
+        }
+        public static ImDrawListPtr GetBackgroundDrawList(ImGuiViewportPtr viewport)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImDrawList* ret = ImGuiNative.igGetBackgroundDrawList_ViewportPtr(native_viewport);
             return new ImDrawListPtr(ret);
         }
         public static string GetClipboardText()
@@ -8182,6 +8290,12 @@ namespace ImGuiNET
             ImDrawList* ret = ImGuiNative.igGetForegroundDrawList_Nil();
             return new ImDrawListPtr(ret);
         }
+        public static ImDrawListPtr GetForegroundDrawList(ImGuiViewportPtr viewport)
+        {
+            ImGuiViewport* native_viewport = viewport.NativePtr;
+            ImDrawList* ret = ImGuiNative.igGetForegroundDrawList_ViewportPtr(native_viewport);
+            return new ImDrawListPtr(ret);
+        }
         public static int GetFrameCount()
         {
             int ret = ImGuiNative.igGetFrameCount();
@@ -8327,6 +8441,11 @@ namespace ImGuiNET
             ImGuiNative.igGetMousePosOnOpeningCurrentPopup(&__retval);
             return __retval;
         }
+        public static ImGuiPlatformIOPtr GetPlatformIO()
+        {
+            ImGuiPlatformIO* ret = ImGuiNative.igGetPlatformIO();
+            return new ImGuiPlatformIOPtr(ret);
+        }
         public static float GetScrollMaxX()
         {
             float ret = ImGuiNative.igGetScrollMaxX();
@@ -8416,6 +8535,16 @@ namespace ImGuiNET
             ImGuiNative.igGetWindowContentRegionMin(&__retval);
             return __retval;
         }
+        public static uint GetWindowDockID()
+        {
+            uint ret = ImGuiNative.igGetWindowDockID();
+            return ret;
+        }
+        public static float GetWindowDpiScale()
+        {
+            float ret = ImGuiNative.igGetWindowDpiScale();
+            return ret;
+        }
         public static ImDrawListPtr GetWindowDrawList()
         {
             ImDrawList* ret = ImGuiNative.igGetWindowDrawList();
@@ -8437,6 +8566,11 @@ namespace ImGuiNET
             Vector2 __retval;
             ImGuiNative.igGetWindowSize(&__retval);
             return __retval;
+        }
+        public static ImGuiViewportPtr GetWindowViewport()
+        {
+            ImGuiViewport* ret = ImGuiNative.igGetWindowViewport();
+            return new ImGuiViewportPtr(ret);
         }
         public static float GetWindowWidth()
         {
@@ -11425,6 +11559,17 @@ namespace ImGuiNET
             byte ret = ImGuiNative.igIsMouseReleased((ImGuiMouseButton)button);
             return ret != 0;
         }
+        public static bool IsMouseTripleClicked(ImGuiMouseButton button)
+        {
+            byte ret = ImGuiNative.igIsMouseTripleClicked(button);
+            return ret != 0;
+        }
+        [Obsolete("Use method with non-primitive (enum) arguments instead.")]
+        public static bool IsMouseTripleClicked(int button)
+        {
+            byte ret = ImGuiNative.igIsMouseTripleClicked((ImGuiMouseButton)button);
+            return ret != 0;
+        }
         public static bool IsPopupOpen(string str_id)
         {
             byte* native_str_id;
@@ -11526,6 +11671,11 @@ namespace ImGuiNET
         public static bool IsWindowCollapsed()
         {
             byte ret = ImGuiNative.igIsWindowCollapsed();
+            return ret != 0;
+        }
+        public static bool IsWindowDocked()
+        {
+            byte ret = ImGuiNative.igIsWindowDocked();
             return ret != 0;
         }
         public static bool IsWindowFocused()
@@ -13301,6 +13451,24 @@ namespace ImGuiNET
         {
             ImGuiNative.igRender();
         }
+        public static void RenderPlatformWindowsDefault()
+        {
+            void* platform_render_arg = null;
+            void* renderer_render_arg = null;
+            ImGuiNative.igRenderPlatformWindowsDefault(platform_render_arg, renderer_render_arg);
+        }
+        public static void RenderPlatformWindowsDefault(IntPtr platform_render_arg)
+        {
+            void* native_platform_render_arg = (void*)platform_render_arg.ToPointer();
+            void* renderer_render_arg = null;
+            ImGuiNative.igRenderPlatformWindowsDefault(native_platform_render_arg, renderer_render_arg);
+        }
+        public static void RenderPlatformWindowsDefault(IntPtr platform_render_arg, IntPtr renderer_render_arg)
+        {
+            void* native_platform_render_arg = (void*)platform_render_arg.ToPointer();
+            void* native_renderer_render_arg = (void*)renderer_render_arg.ToPointer();
+            ImGuiNative.igRenderPlatformWindowsDefault(native_platform_render_arg, native_renderer_render_arg);
+        }
         public static void ResetMouseDragDelta()
         {
             ImGuiMouseButton button = (ImGuiMouseButton)0;
@@ -13916,6 +14084,11 @@ namespace ImGuiNET
         {
             ImGuiNative.igSetNextWindowBgAlpha(alpha);
         }
+        public static void SetNextWindowClass(ImGuiWindowClassPtr window_class)
+        {
+            ImGuiWindowClass* native_window_class = window_class.NativePtr;
+            ImGuiNative.igSetNextWindowClass(native_window_class);
+        }
         public static void SetNextWindowCollapsed(bool collapsed)
         {
             byte native_collapsed = collapsed ? (byte)1 : (byte)0;
@@ -13936,6 +14109,20 @@ namespace ImGuiNET
         public static void SetNextWindowContentSize(Vector2 size)
         {
             ImGuiNative.igSetNextWindowContentSize(size);
+        }
+        public static void SetNextWindowDockID(uint dock_id)
+        {
+            ImGuiCond cond = (ImGuiCond)0;
+            ImGuiNative.igSetNextWindowDockID(dock_id, cond);
+        }
+        public static void SetNextWindowDockID(uint dock_id, ImGuiCond cond)
+        {
+            ImGuiNative.igSetNextWindowDockID(dock_id, cond);
+        }
+        [Obsolete("Use method with non-primitive (enum) arguments instead.")]
+        public static void SetNextWindowDockID(uint dock_id, int cond)
+        {
+            ImGuiNative.igSetNextWindowDockID(dock_id, (ImGuiCond)cond);
         }
         public static void SetNextWindowFocus()
         {
@@ -13996,6 +14183,10 @@ namespace ImGuiNET
         {
             void* native_custom_callback_data = (void*)custom_callback_data.ToPointer();
             ImGuiNative.igSetNextWindowSizeConstraints(size_min, size_max, custom_callback, native_custom_callback_data);
+        }
+        public static void SetNextWindowViewport(uint viewport_id)
+        {
+            ImGuiNative.igSetNextWindowViewport(viewport_id);
         }
         public static void SetScrollFromPosX(float local_x)
         {
@@ -18156,6 +18347,10 @@ namespace ImGuiNET
         public static void Unindent(float indent_w)
         {
             ImGuiNative.igUnindent(indent_w);
+        }
+        public static void UpdatePlatformWindows()
+        {
+            ImGuiNative.igUpdatePlatformWindows();
         }
         public static void Value(string prefix, bool b)
         {
